@@ -1,7 +1,20 @@
-pre code {
+pre {
+    -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+    box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+}
+    
+code {
 	background-color: rgb(245, 245, 245);
 }
 
 .highlight {
 	background-color: yellow;
+}
+
+ol {
+    margin: 0 0 0 33px;
+}
+
+ol li {
+    padding-left: 12px;
 }
