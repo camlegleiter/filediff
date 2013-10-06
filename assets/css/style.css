@@ -9,22 +9,22 @@ code {
 
 /* Modified */
 .highlight-yellow {
-	background-color: yellow;
+	background-color: rgba(255, 255, 0, 0.2);
 }
 
 /* Moved */
 .highlight-blue {
-	background-color: blue;
+	background-color: rgba(0, 0, 255, 0.2);
 }
 
 /* Inserted */
 .highlight-green {
-	background-color: green;
+	background-color: rgba(0, 255, 0, 0.2);
 }
 
 /* Deleted */
 .highlight-red {
-	background-color: red;
+	background-color: rgba(255, 0, 0, 0.2);
 }
 
 ol {

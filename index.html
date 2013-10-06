@@ -32,6 +32,19 @@
 				<div id="file1" class="span6"></div>
 				<div id="file2" class="span6"></div>
 			</div>
+			<div class="row">
+				<div class="span12">
+					<form class="form">
+						<h4>Color Scheme:</h4>
+						<div class="control-group">
+							<span class="highlight-green">Added</span>
+							<span class="highlight-blue">Inserted</span>
+							<span class="highlight-yellow">Modified</span>
+							<span class="highlight-red">Deleted</span>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 		
 		<script src="assets/js/vendor/jquery.js"></script>
@@ -52,7 +65,7 @@
 
 		<script id="file-template" type="text/template">
 			<h2>File <%= fileNumber %></h2>
-			<p>Select a file, or drag one here to add a file.</p>
+			<p>Select a file to get started!</p>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
 				<div class="input-append">
 					<div class="uneditable-input span3">
