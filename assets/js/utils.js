@@ -24,7 +24,13 @@ function compareFiles(file1, file2) {
 			}
 		}
 	} else {
-		var i = lines1.length, j = lines2.length;
+		for (var i = 0; i < lines1.length; ++i) {
+			file1.addToOutput(lines1[i]);
+		}
+
+		for (var i = 0; i < lines2.length; ++i) {
+			file2.addToOutput(lines2[i]);
+		}
 	}
 }
 
