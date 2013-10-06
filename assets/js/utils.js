@@ -15,22 +15,28 @@ function compareFiles(file1, file2) {
 
 	var lines1Type = [], lines2Type = [];
 
-	for (var i = 0; i < lines1.length; ++i) {
-		for (var j = 0; j < lines2.length; ++j) {
-			if (i === j && lines1[i].replace(/\s+/, '') === lines2[j].replace(/\s+/, '')) {
+	for (var i = 0; i < lines1.length; i++) {
+		for (var j = 0; j < lines2.length; j++) {
+		    if (i === j && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
 				lines1Type[i] = 1;
 				lines2Type[i] = 1;
 				break;
 			}
-
-			if (lines1Type[i] === undefined) {
-				if (lines1[i].replace(/\s+/, '') === lines2[j].replace(/\s+/, '')) {
-					lines1Type[i] = 2;
-					lines2Type[j] = 2;
-				} /*else if (lines1[i].replace(/\s+/, '') ~~ lines2[j].replace(/\s+/, '')) {
-					line1Type[i] = 3;
-					line2Type[j] = 3;
-				}*/
+			if (lines2Type[j] !== 1) {
+			    if (j > i && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+			        lines1Type[i] = 2;
+			        lines2Type[j] = 2;
+			        break;
+			    } else if (lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+			        lines1Type[i] = 2;
+			        lines2Type[j] = 2;
+			    }
+			}
+			if (lines1Type[i] === undefined && lines2Type[j] === undefined) {
+		        if (lineCompare(lines1[i].replace(/\s+/g, ''), lines2[j].replace(/\s+/g, '')) >= .8) {
+			        lines1Type[i] = 3;
+			        lines2Type[j] = 3;
+			    }
 			}
 		}
 
@@ -90,6 +96,19 @@ function compareFiles(file1, file2) {
 	// 		file2.addToOutput(lines2[i]);
 	// 	}
 	// }
+}
+
+function lineCompare(line1, line2) {
+    var count = 0;
+    for (var i = 0; i < line1.length; i++) {
+        for(var j = 0; j < line2.length; j++)
+            if (line1[i] === line2[j]) {
+                count++;
+                line2 = line2.slice(0, j) + line2.slice(j+1);
+                break;
+            }
+    }
+    return (1.0 * count / line1.length);
 }
 
 function highlight(line, color) {
