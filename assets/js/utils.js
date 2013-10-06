@@ -17,17 +17,17 @@ function compareFiles(file1, file2) {
 
 	for (var i = 0; i < lines1.length; ++i) {
 		for (var j = 0; j < lines2.length; ++j) {
-			if (i === j && lines1[i] === lines2[j]) {
+			if (i === j && lines1[i].replace(/\s+/, '') === lines2[j].replace(/\s+/, '')) {
 				lines1Type[i] = 1;
 				lines2Type[i] = 1;
 				break;
 			}
 
 			if (lines1Type[i] === undefined) {
-				if (lines1[i] === lines2[j]) {
+				if (lines1[i].replace(/\s+/, '') === lines2[j].replace(/\s+/, '')) {
 					lines1Type[i] = 2;
 					lines2Type[j] = 2;
-				} /*else if (lines1[i] ~~ lines2[j]) {
+				} /*else if (lines1[i].replace(/\s+/, '') ~~ lines2[j].replace(/\s+/, '')) {
 					line1Type[i] = 3;
 					line2Type[j] = 3;
 				}*/
