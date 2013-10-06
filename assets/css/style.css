@@ -7,8 +7,24 @@ code {
 	background-color: rgb(245, 245, 245);
 }
 
-.highlight {
+/* Modified */
+.highlight-yellow {
 	background-color: yellow;
+}
+
+/* Moved */
+.highlight-blue {
+	background-color: blue;
+}
+
+/* Inserted */
+.highlight-green {
+	background-color: green;
+}
+
+/* Deleted */
+.highlight-red {
+	background-color: red;
 }
 
 ol {
