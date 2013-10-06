@@ -76,26 +76,6 @@ function compareFiles(file1, file2) {
 		else if(lines2Type[i] === 4)
 			file2.addToOutput(highlight(lines2[i], 'green'))
 	}
-	
-	// if (lines1.length === lines2.length) {
-	// 	for (var i = 0; i < lines1.length; ++i) {
-	// 		if (lines1[i].replace(/\s+/, '') === lines2[i].replace(/\s+/, '')) {
-	// 			file1.addToOutput(lines1[i]);
-	// 			file2.addToOutput(lines2[i]);
-	// 		} else {
-	// 			file1.addToOutput(highlight(lines1[i]));
-	// 			file2.addToOutput(highlight(lines2[i]));
-	// 		}
-	// 	}
-	// } else {
-	// 	for (var i = 0; i < lines1.length; ++i) {
-	// 		file1.addToOutput(lines1[i]);
-	// 	}
-
-	// 	for (var i = 0; i < lines2.length; ++i) {
-	// 		file2.addToOutput(lines2[i]);
-	// 	}
-	// }
 }
 
 function lineCompare(line1, line2) {
