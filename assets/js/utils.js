@@ -1,3 +1,5 @@
+'use strict';
+
 if (typeof String.prototype.endsWith !== 'function') {
 	String.prototype.endsWith = function(suffix) {
 		return this.indexOf(suffix, this.length - suffix.length) !== -1;
@@ -5,8 +7,8 @@ if (typeof String.prototype.endsWith !== 'function') {
 }
 
 function compareFiles(file1, file2) {
-	file1.emptyOutput();
-	file2.emptyOutput();
+	file1.clearFileOutput();
+	file2.clearFileOutput();
 
 	var lines1 = file1.getLines();
 	var lines2 = file2.getLines();

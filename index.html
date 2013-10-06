@@ -29,72 +29,46 @@
 		</noscript>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span6">
-					<h2>File 1</h2>
-					<p>Select a file, or drag one here to add a file.</p>
-					<div class="fileupload fileupload-new" data-provides="fileupload">
-						<div class="input-append">
-							<div class="uneditable-input span3">
-								<i class="icon-file fileupload-exists"></i>
-								<span class="fileupload-preview"></span>
-							</div>
-							<span class="btn btn-file">
-								<span class="fileupload-new">Select file</span>
-								<span class="fileupload-exists">Change</span>
-								<input type="file" id="file1" name="file1" />
-							</span>
-							<a href="#" class="btn fileupload-exists file1-remove" data-dismiss="fileupload">Remove</a>
-						</div>
-					</div>
-					<pre><code class="java"><ol id="file1-output"></ol></code></pre>
-				</div>
-				<div class="span6">
-					<h2>File 2</h2>
-					<p>Select a file, or drag one here to add a file.</p>
-					<div class="fileupload fileupload-new" data-provides="fileupload">
-						<div class="input-append">
-							<div class="uneditable-input span3">
-								<i class="icon-file fileupload-exists"></i>
-								<span class="fileupload-preview"></span>
-							</div>
-							<span class="btn btn-file">
-								<span class="fileupload-new">Select file</span>
-								<span class="fileupload-exists">Change</span>
-								<input type="file" id="file2" name="file2"/>
-							</span>
-							<a href="#" class="btn fileupload-exists file2-remove" data-dismiss="fileupload">Remove</a>
-						</div>
-					</div>
-					<pre><code class="java"><ol id="file2-output"></ol></code></pre>
-				</div>
+				<div id="file1" class="span6"></div>
+				<div id="file2" class="span6"></div>
 			</div>
 		</div>
+		
 		<script src="assets/js/vendor/jquery.js"></script>
 		<script src="assets/js/vendor/mootools.js"></script>
 		<script src="assets/js/vendor/bootstrap-fileupload.min.js"></script>
 		<script src="assets/js/vendor/underscore.js"></script>
+		<script src="assets/js/vendor/backbone-min.js"></script>
+		<script src="assets/js/vendor/backbone.marionette.min.js"></script>
 		
+		<script>FileDiff = new Backbone.Marionette.Application();</script>
 		<script src="assets/js/utils.js"></script>
 		<script src="assets/js/filediff.js"></script>
 		<script>
-			var file1, file2;
+			$(document).ready(function() {
+			    Files = FileDiff.Files;
+			    Files.start();
+			});
+		</script>
 
-			if (window.File && window.FileReader && window.FileList && window.Blob) {
-				file1 = new FileDiff('#file1', '#file1-output', '.file1-remove');
-				file2 = new FileDiff('#file2', '#file2-output', '.file2-remove');
-				
-				$(file1).on('ready', function() {
-					if (!file2.isReady()) return;
-					compareFiles(file1, file2);
-				});
-				
-				$(file2).on('ready', function() {
-					if (!file1.isReady()) return;
-					compareFiles(file1, file2);
-				});
-			} else {
-				alert('The File APIs are not fully supported in this browser.');
-			}
+		<script id="file-template" type="text/template">
+			<h2>File <%= fileNumber %></h2>
+			<p>Select a file, or drag one here to add a file.</p>
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+				<div class="input-append">
+					<div class="uneditable-input span3">
+						<i class="icon-file fileupload-exists"></i>
+						<span class="fileupload-preview"></span>
+					</div>
+					<span class="btn btn-file">
+						<span class="fileupload-new">Select file</span>
+						<span class="fileupload-exists">Change</span>
+						<input type="file" class="file-input" name="file1" />
+					</span>
+					<a href="#" class="btn fileupload-exists file1-remove" data-dismiss="fileupload">Remove</a>
+				</div>
+			</div>
+			<pre><code class="java"><ol class="file-output"></ol></code></pre>
 		</script>
 	</body>
 </html>
