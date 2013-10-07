@@ -1,0 +1,8 @@
+Nicole Bruck
+Cameron Legleiter
+
+FileDiff
+
+To utilize our program effectively, extract the .zip files to a secured location. Then, open the index.html file with a browser. Then, browse for the "old java file" that you would like to check. The site will display the code of the "old java file" on the left. Then you may select your "new java file" on the right. Once you have selected, the page will display your code highlighted appropriately to display the comparisons. The corresponding color markers are below the code in the bottom-left. 
+
+// Commenting in source code for more information
