@@ -7,6 +7,7 @@ if (typeof String.prototype.endsWith !== 'function') {
 }
 
 function compareFiles(file1, file2) {
+    // Clean out the file display before comparing them and redisplaying with highlights
 	file1.clearFileOutput();
 	file2.clearFileOutput();
 
@@ -15,42 +16,56 @@ function compareFiles(file1, file2) {
 
 	var lines1Type = [], lines2Type = [];
 
+    // For each line in our original file
 	for (var i = 0; i < lines1.length; i++) {
-		for (var j = 0; j < lines2.length; j++) {
+        // Examine each line in the new file
+	    for (var j = 0; j < lines2.length; j++) {
+            // If we're on the same line number and the lines are identical, make are the "same"
 		    if (i === j && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
 				lines1Type[i] = 1;
 				lines2Type[i] = 1;
 				break;
-			}
-			if (lines2Type[j] !== 1) {
-			    if (j > i && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+		    }
+            // As long as the new line hasn't been flagged as "same"
+		    if (lines2Type[j] !== 1) {
+                // If we've found a matching line farther along in the new file, we know that it isn't the "same"
+		        if (j > i && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+                    // Mark the lines as "moved" and move on down the old file
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
 			        break;
-			    } else if (lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+                // If we found an identical line before the same line number
+		        } else if (lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
+                    // Mark the line as "moved" and keep checking for a better match
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
 			    }
-			}
-			if (lines1Type[i] === undefined && lines2Type[j] === undefined) {
+		    }
+            // If we haven't marked either lines as anything
+		    if (lines1Type[i] === undefined && lines2Type[j] === undefined) {
+                // If they've been "modified" (use helper comparison method with over 80% similar characters)
 		        if (lineCompare(lines1[i].replace(/\s+/g, ''), lines2[j].replace(/\s+/g, '')) >= .8) {
+		            // Mark them as "modified"
 			        lines1Type[i] = 3;
 			        lines2Type[j] = 3;
 			    }
 			}
 		}
 
+        // If our old line didn't find a match, mark it as deleted
 		if (lines1Type[i] === undefined) {
 			lines1Type[i] = 0;
 		}
 	}
 
+    // For each line in the new file, if it hasn't been labeled, mark it as "inserted"
 	for (var j = 0; j < lines2.length; ++j) {
 		if (lines2Type[j] === undefined) {
 			lines2Type[j] = 4;
 		}
 	}
 
+    // For each line in the old document, add it to the view and highlight appropriately
 	for(var i = 0; i < lines1Type.length; i++){
 		if(lines1Type[i] === 0)
 			file1.addToOutput(highlight(lines1[i], 'red'))
@@ -60,14 +75,11 @@ function compareFiles(file1, file2) {
 			file1.addToOutput(highlight(lines1[i], 'blue'))
 		else if(lines1Type[i] === 3)
 			file1.addToOutput(highlight(lines1[i], 'yellow'))
-		else if(lines1Type[i] === 4)
-			file1.addToOutput(highlight(lines1[i], 'green'))
 	}
 
+    // For each line in the new document, add it to the view and highlight appropriately
 	for(var i = 0; i < lines2Type.length; i++){
-		if(lines2Type[i] === 0)
-			file2.addToOutput(highlight(lines2[i], 'red'))
-		else if(lines2Type[i] === 1)
+		if(lines2Type[i] === 1)
 			file2.addToOutput(lines2[i])
 		else if(lines2Type[i] === 2)
 			file2.addToOutput(highlight(lines2[i], 'blue'))
@@ -78,6 +90,7 @@ function compareFiles(file1, file2) {
 	}
 }
 
+// Compares characters and returns the percentage of matching chars from the first line
 function lineCompare(line1, line2) {
     var count = 0;
     for (var i = 0; i < line1.length; i++) {
