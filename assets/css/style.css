@@ -7,13 +7,6 @@ code {
 	background-color: rgb(245, 245, 245);
 }
 
-.highlight-yellow,
-.highlight-blue,
-.highlight-green,
-.highlight-red {
-	padding: 0 5px;
-}
-
 /* Modified */
 .highlight-yellow {
 	background-color: rgba(255, 255, 0, 0.2);
@@ -32,10 +25,6 @@ code {
 /* Deleted */
 .highlight-red {
 	background-color: rgba(255, 0, 0, 0.2);
-}
-
-ol {
-    margin: 0 0 0 33px;
 }
 
 ol li {
