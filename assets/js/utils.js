@@ -101,6 +101,7 @@ function compareFiles(file1, file2) {
 	}
 	
 	// Based on line stats (index 0 = deleted, 1 = same, 2 = moved, 3 = modified, 4 = inserted
+		$('.comp-results')
 }
 
 // Compares characters and returns the percentage of matching chars from the first line
