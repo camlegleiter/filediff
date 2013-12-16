@@ -3,48 +3,41 @@
 	<head>
 		<title>File Diff</title>
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-		<style type="text/css">
-			body {
-			padding-top: 60px;
-			padding-bottom: 40px;
-			}
-		</style>
 		<link href="assets/css/bootstrap-fileupload.min.css" rel="stylesheet">
 		<link href="assets/css/style.css" rel="stylesheet">
+		<style type="text/css">
+			body {
+				padding-bottom: 40px;
+			}
+		</style>
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 		<script src="assets/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a class="brand" href="#">File Diff</a>
+		<nav class="navbar navbar-static-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">File Diff</a>
 				</div>
+				<p class="navbar-text">Color Scheme:</p>
+				<p class="navbar-text highlight-green">Added</p>
+				<p class="navbar-text highlight-blue">Moved</p>
+				<p class="navbar-text highlight-yellow">Modified</p>
+				<p class="navbar-text highlight-red">Deleted</p>
 			</div>
-		</div>
+		</nav>
 		<noscript>
 			This site works best when JavaScript is enabled.
 		</noscript>
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div id="file1" class="span6"></div>
-				<div id="file2" class="span6"></div>
-			</div>
+		<div class="container">
 			<div class="row">
-				<div class="span12">
-					<form class="form">
-						<h4>Color Scheme:</h4>
-						<div class="control-group">
-							<span class="highlight-green">Added</span>
-							<span class="highlight-blue">Moved</span>
-							<span class="highlight-yellow">Modified</span>
-							<span class="highlight-red">Deleted</span>
-						</div>
-					</form>
-				</div>
+				<div id="file1" class="col-md-6"></div>
+				<div id="file2" class="col-md-6"></div>
 			</div>
+			<h3>Moss Results:</h3>
+			<div class="row moss-results"></div>
 		</div>
 		
 		<script src="assets/js/vendor/jquery.js"></script>
@@ -72,12 +65,12 @@
 						<i class="icon-file fileupload-exists"></i>
 						<span class="fileupload-preview"></span>
 					</div>
-					<span class="btn btn-file">
+					<span class="btn btn-default btn-file">
 						<span class="fileupload-new">Select file</span>
 						<span class="fileupload-exists">Change</span>
 						<input type="file" class="file-input" name="file1" />
 					</span>
-					<a href="#" class="btn fileupload-exists file1-remove" data-dismiss="fileupload">Remove</a>
+					<a href="#" class="btn btn-default fileupload-exists file1-remove" data-dismiss="fileupload">Remove</a>
 				</div>
 			</div>
 			<pre><code class="java"><ol class="file-output"></ol></code></pre>
