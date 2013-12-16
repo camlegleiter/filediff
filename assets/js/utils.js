@@ -15,7 +15,7 @@ function compareFiles(file1, file2) {
 	var lines2 = file2.getLines();
 
 	var lines1Type = [], lines2Type = [];
-	var lines1Stats = [], lines2Stats = [];
+	var lines1Stats =  [0, 0, 0, 0, 0], lines2Stats = [0, 0, 0, 0, 0];
 
     // For each line in our original file
 	for (var i = 0; i < lines1.length; i++) {
@@ -36,16 +36,12 @@ function compareFiles(file1, file2) {
                     // Mark the lines as "moved" and move on down the old file
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
-					lines1Stats[2]++;
-					lines2Stats[2]++;
 			        break;
                 // If we found an identical line before the same line number
 		        } else if (lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
                     // Mark the line as "moved" and keep checking for a better match
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
-					lines1Stats[2]++;
-					lines2Stats[2]++;
 			    }
 		    }
             // If we haven't marked either lines as anything
@@ -100,9 +96,34 @@ function compareFiles(file1, file2) {
 			file2.addToOutput(highlight(lines2[i], 'green'))
 	}
 	
+	// For each line in our original file
+	for (var i = 0; i < lines1.length; i++) {
+		if(lines1Type[i] == 2)
+			lines1Stats[2]++;
+	}
+	// Examine each line in the new file
+	for (var i = 0; i < lines2.length; i++) {
+		if(lines2Type[i] == 2)
+			lines2Stats[2]++;
+	}
+	
 	// Based on line stats (index 0 = deleted, 1 = same, 2 = moved, 3 = modified, 4 = inserted
-		$('.comp-results-1').text();
-		$('.comp-results-2').text();
+	var result = Number((100.0 * (lines1Stats[1] + lines1Stats[2]) / lines1.length)).toFixed(2);
+	var file1results = "<b>Similar Lines: </b>" + result + "%<br>";
+	result = Number((100.0 * lines1Stats[0] / lines1.length)).toFixed(2);
+	file1results += "<b>Deleted Lines: </b>" + result + "%<br>";
+	result = Number((100.0 * lines1Stats[3] / lines1.length)).toFixed(2);
+	file1results += "<b>Modified Lines: </b>" + result + "%";
+	
+	result = Number((100.0 * (lines2Stats[1] + lines2Stats[2]) / lines2.length)).toFixed(2);
+	var file2results = "<b>Similar Lines: </b>" + result + "%<br>";
+	result = Number((100.0 * lines2Stats[4] / lines2.length)).toFixed(2);
+	file2results += "<b>Inserted Lines: </b>" + result + "%<br>";
+	result = Number((100.0 * lines2Stats[3] / lines2.length)).toFixed(2);
+	file2results += "<b>Modified Lines: </b>" + result + "%";
+	
+	$('.comp-results-1').html(file1results);
+	$('.comp-results-2').html(file2results);
 }
 
 // Compares characters and returns the percentage of matching chars from the first line

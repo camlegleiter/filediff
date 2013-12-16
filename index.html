@@ -36,7 +36,6 @@
 				<div id="file1" class="col-md-6"></div>
 				<div id="file2" class="col-md-6"></div>
 			</div>
-			<h3>Additional Comparison Results:</h3>
 			<div class="row comp-results"></div>
 		</div>
 		
@@ -58,7 +57,7 @@
 
 		<script id="file-template" type="text/template">
 			<h2>File <%= fileNumber %></h2>
-			<p>Select a file to get started!</p>
+			<p><div id="select-file<%= fileNumber %>">Select a file to get started!</div></p>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
 				<div class="input-append">
 					<div class="uneditable-input span3">
@@ -73,8 +72,8 @@
 					<a href="#" class="btn btn-default fileupload-exists file1-remove" data-dismiss="fileupload">Remove</a>
 				</div>
 			</div>
-			<pre><code class="java"><ol class="file-output"></ol></code></pre>
 			<div class="comp-results-<%= fileNumber %>"></div>
+			<pre><code class="java"><ol class="file-output"></ol></code></pre>
 		</script>
 	</body>
 </html>
