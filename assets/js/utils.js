@@ -15,6 +15,7 @@ function compareFiles(file1, file2) {
 	var lines2 = file2.getLines();
 
 	var lines1Type = [], lines2Type = [];
+	var lines1Stats = [], lines2Stats = [];
 
     // For each line in our original file
 	for (var i = 0; i < lines1.length; i++) {
@@ -24,6 +25,8 @@ function compareFiles(file1, file2) {
 		    if (i === j && lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
 				lines1Type[i] = 1;
 				lines2Type[i] = 1;
+				lines1Stats[1]++;
+				lines2Stats[1]++;
 				break;
 		    }
             // As long as the new line hasn't been flagged as "same"
@@ -33,12 +36,16 @@ function compareFiles(file1, file2) {
                     // Mark the lines as "moved" and move on down the old file
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
+					lines1Stats[2]++;
+					lines2Stats[2]++;
 			        break;
                 // If we found an identical line before the same line number
 		        } else if (lines1[i].replace(/\s+/g, '') === lines2[j].replace(/\s+/g, '')) {
                     // Mark the line as "moved" and keep checking for a better match
 			        lines1Type[i] = 2;
 			        lines2Type[j] = 2;
+					lines1Stats[2]++;
+					lines2Stats[2]++;
 			    }
 		    }
             // If we haven't marked either lines as anything
@@ -48,6 +55,8 @@ function compareFiles(file1, file2) {
 		            // Mark them as "modified"
 			        lines1Type[i] = 3;
 			        lines2Type[j] = 3;
+					lines1Stats[3]++;
+					lines2Stats[3]++;
 			    }
 			}
 		}
@@ -55,6 +64,7 @@ function compareFiles(file1, file2) {
         // If our old line didn't find a match, mark it as deleted
 		if (lines1Type[i] === undefined) {
 			lines1Type[i] = 0;
+			lines1Stats[0]++;
 		}
 	}
 
@@ -62,6 +72,7 @@ function compareFiles(file1, file2) {
 	for (var j = 0; j < lines2.length; ++j) {
 		if (lines2Type[j] === undefined) {
 			lines2Type[j] = 4;
+			lines2Stats[4]++;
 		}
 	}
 
@@ -88,6 +99,8 @@ function compareFiles(file1, file2) {
 		else if(lines2Type[i] === 4)
 			file2.addToOutput(highlight(lines2[i], 'green'))
 	}
+	
+	// Based on line stats (index 0 = deleted, 1 = same, 2 = moved, 3 = modified, 4 = inserted
 }
 
 // Compares characters and returns the percentage of matching chars from the first line
@@ -104,6 +117,7 @@ function lineCompare(line1, line2) {
     return (1.0 * count / line1.length);
 }
 
+// Highlights the appropriate line in the file displayed with what color is given
 function highlight(line, color) {
 	var ret = '';
 	
