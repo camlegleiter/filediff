@@ -86,6 +86,7 @@ FileDiff.module("Files", function(Module, App, Backbone, Marionette, $, _) {
 				
 				// If it is a .java file, read it
 				this.readFile(file);
+				$("#select-file" + this.fileNumber).html("");
 			}
 		},
 
